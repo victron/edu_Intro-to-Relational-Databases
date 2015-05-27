@@ -2,21 +2,28 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <title>New menu in: {{ restaurant_name }}</title>
 </head>
 <body>
-<h1>New Menue in: {{ restaurant_name }}</h1>
+<div class="pane">
+<h1 class="header">New Menue in: {{ restaurant_name }}</h1>
 <form action="{{ url_for('newMenu', restaurant_id=restaurant_id) }}" method="post">
-    <p>Name:</p>
+    <p class="name">Name:</p>
     <input type="text" size="30" name="name" placeholder="Name">
-    <p>Course:</p>
-    <input type="text" size="30" name="course" placeholder="Course">
-    <p>Description: </p>
-    <input type="text" size="30" name="description" placeholder="description">
-    <p>Price:</p>
-    <input type="text" size="30" name="price" placeholder="price">
+    <p class="name">Course:<br>
+    <input type="radio" name="course" value="Entree" checked>Entree<br>
+    <input type="radio" name="course" value="Dessert">Dessert<br>
+    <input type="radio" name="course" value="Beverage">Beverage<br>
+    <input type="radio" name="course" value="Appetizer">Appetizer<br>
+    </p>
+    <h3 class="description">Description:
+    <input type="text" size="30" name="description" placeholder="description"> </h3>
+    <h3 >Price:
+    <input class="price" type="text" size="30" name="price" placeholder="price"></h3>
     <input type="submit" value="Create">
     <a href="{{ url_for('showMenu', restaurant_id=restaurant_id) }}">Cancel</a>
+</div>
 </form>
 </body>
 </html>

@@ -2,28 +2,44 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <title>{{ restaurant_name }}: menu</title>
 </head>
 <body>
+
 {% with messages = get_flashed_messages() %}
     {% if messages %}
-        <ul>
+        <ul class="flash">
             {% for message in messages %}
-                <li><strong>{{ message }}</strong></li>
+                <li class="error"><strong>{{ message }}</strong></li>
             {% endfor %}
         </ul>
     {% endif %}
 {% endwith %}
-<h1>Menu in {{ restaurant_name }}</h1>
-<a href="{{ url_for('newMenu', restaurant_id=restaurant_id) }}">New menu</a><br><br>
+<div class="pane">
+<h1 class="header">Menu in: {{ restaurant_name }}</h1>
+
+<div class="header, flash">
+<a href="{{ url_for('newMenu', restaurant_id=restaurant_id) }}">New menu</a>
+</div>
+<br>
 {% for item in items %}
-    <a href="{{ url_for('editMenue', restaurant_id=restaurant_id, menu_id=item['id'])}}"> {{ item['name'] }}</a>
-    <a href="{{ url_for('deleteMenu', restaurant_id=restaurant_id, menu_id=item['id']) }}"> Delete</a>
-    <br>
-    <b>Course: </b>{{ item['course'] }}<br>
-    <b>Description: </b>{{ item['description'] }}<br>
-    <b>Price: </b>{{ item['price'] }}<br><br>
+
+    <div class="name">
+    <a  href="{{ url_for('editMenue', restaurant_id=restaurant_id, menu_id=item['id'])}}"> {{ item['name'] }}</a>
+    </div>
+    <div class="editdeletepane"><a href="{{ url_for('deleteMenu', restaurant_id=restaurant_id, menu_id=item['id']) }}">
+        Delete</a></div>
+    <div class="description">
+    <b>Course: </b>{{ item['course'] }}
+        <h4>Description: </h4>{{ item['description'] }}
+    </div>
+
+    <div class="price">Price: {{ item['price'] }}</div>
 {% endfor %}
+
+</div>
+
 
 </body>
 </html>
